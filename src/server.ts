@@ -20,9 +20,9 @@ const porta = process.env.PORT || 3333;
 app.listen(porta)       // Utilização da porta
 
 // Aceita somente as chamadas dessa origem em produção
-// app.use(cors({
-//     origin:
-// }))
+app.use(cors({
+    origin: 'https://find-happy.netlify.app/'
+}))
 
 // Params:
 // Query Params: /users?search=wayne    (Parâmetros de busca na url)
