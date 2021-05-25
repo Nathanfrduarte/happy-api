@@ -14,7 +14,10 @@ app.use(routes)         // Utilização do arquivos de rotas
 app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')))
 app.use(ErrorHandler)   // Tratamento de excessões
 
-app.listen(3333)        // Utilização da porta
+// Define a porta 8080 onde será executada nossa aplicação local ou a porta do Heroku caso hospedado
+const porta = process.env.PORT || 3333;
+// Start the server
+app.listen(porta)       // Utilização da porta
 
 // Aceita somente as chamadas dessa origem em produção
 // app.use(cors({
