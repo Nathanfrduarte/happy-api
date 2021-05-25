@@ -7,7 +7,11 @@ import cors from 'cors'
 import ErrorHandler from './exceptions/ExceptionHandler'
 
 const app = express()   // Instância do módulo express
-app.use(cors())         // Permite a chamada de outras instancias diferentes da porta 3333 (Desta API)
+// Aceita somente as chamadas dessa origem em produção
+app.use(cors({
+    origin: 'https://find-happy.netlify.app/'
+}))
+// app.use(cors())         // Permite a chamada de outras instancias diferentes da porta 3333 (Desta API)
 app.use(express.json()) // Utilização de Json pelo express
 app.use(routes)         // Utilização do arquivos de rotas
 // Criação do caminho para visualização de imagens estáticas pelo express
@@ -19,10 +23,10 @@ const porta = process.env.PORT || 3333;
 // Start the server
 app.listen(porta)       // Utilização da porta
 
-// Aceita somente as chamadas dessa origem em produção
-app.use(cors({
-    origin: 'https://find-happy.netlify.app/'
-}))
+// // Aceita somente as chamadas dessa origem em produção
+// app.use(cors({
+//     origin: 'https://find-happy.netlify.app/'
+// }))
 
 // Params:
 // Query Params: /users?search=wayne    (Parâmetros de busca na url)
