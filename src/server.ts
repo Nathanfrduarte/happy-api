@@ -8,9 +8,7 @@ import ErrorHandler from './exceptions/ExceptionHandler'
 
 const app = express()   // Instância do módulo express
 // Aceita somente as chamadas dessa origem em produção
-app.use(cors({
-    origin: 'https://find-happy.netlify.app/'
-}))
+app.use(cors())
 // app.use(cors())         // Permite a chamada de outras instancias diferentes da porta 3333 (Desta API)
 app.use(express.json()) // Utilização de Json pelo express
 app.use(routes)         // Utilização do arquivos de rotas
