@@ -7,14 +7,21 @@ import cors from 'cors'
 import ErrorHandler from './exceptions/ExceptionHandler'
 
 const app = express()   // Instância do módulo express
-// Aceita somente as chamadas dessa origem em produção
-app.use(cors())
-// app.use(cors())         // Permite a chamada de outras instancias diferentes da porta 3333 (Desta API)
+
+app.use(cors())         // Permite a chamada de outras instancias diferentes da porta 3333 (Desta API)
 app.use(express.json()) // Utilização de Json pelo express
 app.use(routes)         // Utilização do arquivos de rotas
 // Criação do caminho para visualização de imagens estáticas pelo express
 app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')))
 app.use(ErrorHandler)   // Tratamento de excessões
+
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", '*')
+    res.header("Access-Control-Allow-Credentials")
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+    res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json')
+    next()
+})
 
 // Define a porta 8080 onde será executada nossa aplicação local ou a porta do Heroku caso hospedado
 const porta = process.env.PORT || 3333;
