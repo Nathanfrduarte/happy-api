@@ -8,8 +8,17 @@ import ErrorHandler from './exceptions/ExceptionHandler'
 
 const app = express()   // Instância do módulo express
 
-app.use(cors())         // Permite a chamada de outras instancias diferentes da porta 3333 (Desta API)
-app.options('*', cors())
+// app.use(cors())         // Permite a chamada de outras instancias diferentes da porta 3333 (Desta API)
+// app.options('*', cors())
+
+app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Headers", "X-Requested-With,content-type, Accept,Authorization,Origin")
+    res.setHeader("Access-Control-Allow-Origin", "*")
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, PATCH, DELETE")
+    res.setHeader("Access-Control-Allow-Credentials", 1)
+    next()
+})
+
 app.use(express.json()) // Utilização de Json pelo express
 app.use(routes)         // Utilização do arquivos de rotas
 // Criação do caminho para visualização de imagens estáticas pelo express
